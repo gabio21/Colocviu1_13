@@ -1,5 +1,6 @@
 package ro.pub.cs.systems.eim.colocviu1_13;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -32,16 +33,17 @@ public class colocviu1_13SecondaryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_colocviu1_13_secondary);
+        setContentView(R.layout.activity_colocviu1_13secondary);
 
         registerButton = findViewById(R.id.register_button);
         registerButton.setOnClickListener(buttonClickListener2);
         cancelButton = findViewById(R.id.cancel_button);
         cancelButton.setOnClickListener(buttonClickListener2);
 
-        editText = findViewById(R.id.edt_text);
-        if(savedInstanceState.containsKey(Constants.SECONDARY_ACTIVITY)) {
-            editText.setText(savedInstanceState.getString(Constants.SECONDARY_ACTIVITY));
+        editText = findViewById(R.id.edit_text);
+        Intent intent = getIntent();
+        if (intent != null && intent.getExtras().containsKey(Constants.SECONDARY_ACTIVITY)) {
+            editText.setText(intent.getStringExtra(Constants.SECONDARY_ACTIVITY));
         }
     }
 }

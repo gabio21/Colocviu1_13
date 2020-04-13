@@ -57,11 +57,11 @@ public class colocviu1_13MainActivity extends AppCompatActivity {
                     pressCount++;
                     break;
                 case R.id.navigate_to_secondary_activity:
-                    pressCount=0;
-                    pressedButtonsEditText.setText("");
-                    Intent intent = new Intent(getApplicationContext(), colocviu1_13SecondaryActivity.class);
+                            Intent intent = new Intent(getApplicationContext(), colocviu1_13SecondaryActivity.class);
                             intent.putExtra(Constants.SECONDARY_ACTIVITY, pressedButtonsEditText.getText().toString());
                             startActivityForResult(intent, Constants.SECONDARY_ACTIVITY_REQUEST_CODE);
+                            pressCount=0;
+                            pressedButtonsEditText.setText("");
                     break;
 
             }
