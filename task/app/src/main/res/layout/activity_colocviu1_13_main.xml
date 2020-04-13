@@ -45,7 +45,8 @@
     <EditText
         android:id="@+id/pressed_buttons_edit_text"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:enabled="false"/>
     <Button
         android:id="@+id/navigate_to_secondary_activity"
         android:layout_gravity="center"
