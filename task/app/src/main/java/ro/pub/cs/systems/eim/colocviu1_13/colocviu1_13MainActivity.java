@@ -1,5 +1,6 @@
 package ro.pub.cs.systems.eim.colocviu1_13;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -15,10 +16,11 @@ public class colocviu1_13MainActivity extends AppCompatActivity {
     private Button westButton;
     private EditText pressedButtonsEditText;
     private Integer pressCount;
+    private Button navigateToSecondaryActivityButton;
 
 
     private ButtonClickListener buttonClickListener = new ButtonClickListener();
-    private class ButtonClickListener implements View.OnClickListener {
+    protected class ButtonClickListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
             switch(view.getId()) {
@@ -54,6 +56,14 @@ public class colocviu1_13MainActivity extends AppCompatActivity {
                     }
                     pressCount++;
                     break;
+                case R.id.navigate_to_secondary_activity:
+                    pressCount=0;
+                    pressedButtonsEditText.setText("");
+                    Intent intent = new Intent(getApplicationContext(), colocviu1_13SecondaryActivity.class);
+                            intent.putExtra(Constants.SECONDARY_ACTIVITY, pressedButtonsEditText.getText().toString());
+                            startActivityForResult(intent, Constants.SECONDARY_ACTIVITY_REQUEST_CODE);
+                    break;
+
             }
         }
     }
@@ -74,6 +84,8 @@ public class colocviu1_13MainActivity extends AppCompatActivity {
         westButton = findViewById(R.id.west_button);
         westButton.setOnClickListener(buttonClickListener);
         pressedButtonsEditText = findViewById(R.id.pressed_buttons_edit_text);
+        navigateToSecondaryActivityButton = findViewById(R.id.navigate_to_secondary_activity);
+        navigateToSecondaryActivityButton.setOnClickListener(buttonClickListener);
     }
 
     @Override
@@ -86,6 +98,16 @@ public class colocviu1_13MainActivity extends AppCompatActivity {
         if (savedInstanceState.containsKey(Constants.PRESS_COUNT)) {
             pressCount = savedInstanceState.getInt(Constants.PRESS_COUNT);
             Toast.makeText(this, "Number of presses: " + pressCount, Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        if (requestCode == Constants.SECONDARY_ACTIVITY_REQUEST_CODE) {
+            if(resultCode == RESULT_OK)
+                Toast.makeText(this, "The activity returned with result Register" , Toast.LENGTH_LONG).show();
+            else
+                Toast.makeText(this, "The activity returned with result Cancel" , Toast.LENGTH_LONG).show();
         }
     }
 }
